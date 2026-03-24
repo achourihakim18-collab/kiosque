@@ -3,6 +3,183 @@ HTML
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<title>Kiosque Pro+</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0a0a0a;
+    color: white;
+    overflow: hidden;
+}
+
+.screen {
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.active { display: flex; }
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.button {
+    padding: 18px;
+    margin: 10px;
+    width: 260px;
+    text-align: center;
+    background: linear-gradient(45deg,#00c3ff,#00ffcc);
+    color: black;
+    font-size: 20px;
+    border-radius: 14px;
+    cursor: pointer;
+}
+
+.products {
+    display: flex;
+    gap: 20px;
+}
+
+.product {
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.product img {
+    width: 120px;
+    border-radius: 10px;
+}
+
+#screensaver {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    animation: fade 2s infinite alternate;
+}
+
+@keyframes fade {
+    from {opacity:0.3;}
+    to {opacity:1;}
+}
+</style>
+</head>
+
+<body onclick="resetTimer()">
+
+<!-- Accueil -->
+<div id="home" class="screen active">
+    <h1>Kiosque Digital</h1>
+    <div class="button" onclick="show('catalogue')">Catalogue</div>
+    <div class="button" onclick="show('camera')">Caméra</div>
+    <div class="button" onclick="show('contact')">Contact</div>
+</div>
+
+<!-- Catalogue -->
+<div id="catalogue" class="screen">
+    <h1>Produits</h1>
+
+    <div class="products">
+        <div class="product">
+            <img src="https://via.placeholder.com/120">
+            <p>Produit 1</p>
+        </div>
+
+        <div class="product">
+            <img src="https://via.placeholder.com/120">
+            <p>Produit 2</p>
+        </div>
+
+        <div class="product">
+            <img src="https://via.placeholder.com/120">
+            <p>Produit 3</p>
+        </div>
+    </div>
+
+    <div class="button" onclick="show('home')">Retour</div>
+</div>
+
+<!-- Caméra -->
+<div id="camera" class="screen">
+    <h1>Caméra</h1>
+    <video id="video" width="300" autoplay></video>
+    <canvas id="canvas" width="300" height="200"></canvas>
+
+    <div class="button" onclick="startCamera()">Activer</div>
+    <div class="button" onclick="capture()">Photo</div>
+    <div class="button" onclick="show('home')">Retour</div>
+</div>
+
+<!-- Contact -->
+<div id="contact" class="screen">
+    <h1>Contact</h1>
+    <p>📞 0550 00 00 00</p>
+    <div class="button" onclick="show('home')">Retour</div>
+</div>
+
+<!-- Écran de veille -->
+<div id="screensaver" onclick="hideScreensaver()">
+    Touchez pour commencer
+</div>
+
+<script>
+function show(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+function startCamera() {
+    navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+        document.getElementById('video').srcObject = stream;
+    })
+    .catch(() => alert("Caméra bloquée"));
+}
+
+function capture() {
+    let video = document.getElementById('video');
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    ctx.drawImage(video,0,0,300,200);
+}
+
+// écran de veille
+let timer;
+function resetTimer() {
+    clearTimeout(timer);
+    document.getElementById('screensaver').style.display="none";
+    timer = setTimeout(()=>{
+        document.getElementById('screensaver').style.display="flex";
+    },20000);
+}
+
+function hideScreensaver(){
+    document.getElementById('screensaver').style.display="none";
+    resetTimer();
+}
+
+resetTimer();
+</script>
+
+</body>
+</html>
+Meriem
+HTML
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kiosque Ultra Complet</title>
 <style>
@@ -151,6 +328,173 @@ HTML
         video.style.display = 'block';
         video.play();
     }
+</script>
+
+</body>
+</html>
+Meriem
+HTML
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiosque Expo Ultra</title>
+<style>
+    /* Fond vidéo en plein écran */
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+    }
+
+    video#bgVideo {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+        z-index: -1;
+        object-fit: cover;
+        filter: brightness(0.7);
+    }
+
+    /* Kiosque central */
+    .kiosque {
+        position: relative;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 30px;
+        padding: 50px;
+        max-width: 800px;
+        width: 90%;
+        margin: auto;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        animation: fadeIn 2s ease-out;
+    }
+
+    h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+        color: #333;
+        animation: slideIn 1.5s ease-out;
+    }
+
+    p {
+        font-size: 1.2em;
+        margin-bottom: 30px;
+        color: #555;
+    }
+
+    button {
+        padding: 15px 40px;
+        margin: 10px;
+        font-size: 18px;
+        border: none;
+        border-radius: 20px;
+        background: linear-gradient(45deg, #ff7e5f, #feb47b);
+        color: white;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s, background 0.5s;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    }
+
+    button:hover {
+        transform: scale(1.1) translateY(-5px);
+        background: linear-gradient(45deg, #feb47b, #ff7e5f);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    }
+
+    img {
+        max-width: 150px;
+        margin: 10px;
+        border-radius: 15px;
+        transition: transform 0.6s;
+        animation: float 4s ease-in-out infinite alternate;
+    }
+
+    img:hover {
+        transform: rotate(15deg) scale(1.15);
+    }
+
+    @keyframes fadeIn {
+        from {opacity:0;} to {opacity:1;}
+    }
+
+    @keyframes slideIn {
+        from {transform: translateY(-30px); opacity:0;} 
+        to {transform: translateY(0); opacity:1;}
+    }
+
+    @keyframes float {
+        from {transform: translateY(0px);}
+        to {transform: translateY(-15px);}
+    }
+
+    video#videoDemo {
+        margin-top: 20px;
+        border-radius: 20px;
+        max-width: 100%;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+<!-- Fond vidéo -->
+<video autoplay muted loop id="bgVideo">
+    <source src="background.mp4" type="video/mp4">
+    Ton navigateur ne supporte pas la lecture vidéo.
+</video>
+
+<div class="kiosque">
+    <h1>Kiosque Expo Ultra</h1>
+    <p>Choisis une action :</p>
+
+    <button onclick="action1()">Ouvrir Google</button>
+    <button onclick="action2()">Afficher Message</button>
+    <button onclick="action3()">Ouvrir PDF</button>
+    <button onclick="action4()">Ouvrir YouTube</button>
+    <button onclick="action5()">Afficher Images Animées</button>
+    <button onclick="action6()">Lire Vidéo Démo</button>
+
+    <div id="imageContainer"></div>
+    <video id="videoDemo" controls>
+        <source src="exemple.mp4" type="video/mp4">
+        Ton navigateur ne supporte pas la lecture vidéo.
+    </video>
+</div>
+
+<script>
+function action1() {
+    window.open('https://www.google.com', '_blank');
+}
+function action2() {
+    alert('Bienvenue sur ton kiosque Expo Ultra !');
+}
+function action3() {
+    window.open('exemple.pdf', '_blank');
+}
+function action4() {
+    window.open('https://www.youtube.com', '_blank');
+}
+function action5() {
+    const container = document.getElementById('imageContainer');
+    container.innerHTML = `
+        <img src="https://via.placeholder.com/150" alt="Image 1">
+        <img src="https://via.placeholder.com/150/ff7e5f" alt="Image 2">
+        <img src="https://via.placeholder.com/150/feb47b" alt="Image 3">
+    `;
+}
+function action6() {
+    const video = document.getElementById('videoDemo');
+    video.style.display = 'block';
+    video.play();
+}
 </script>
 
 </body>
