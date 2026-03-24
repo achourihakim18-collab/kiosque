@@ -3,497 +3,161 @@ HTML
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Kiosque Pro+</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiosque Interactif</title>
 <style>
 body {
-    margin: 0;
-    font-family: Arial;
-    background: #0a0a0a;
-    color: white;
-    overflow: hidden;
-}
-
-.screen {
-    display: none;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
+    font-family: Arial, sans-serif;
+    background: #f0f0f5;
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
-
-.active { display: flex; }
 
 h1 {
-    font-size: 42px;
     margin-bottom: 20px;
 }
 
-.button {
-    padding: 18px;
+button {
+    padding: 10px 20px;
     margin: 10px;
-    width: 260px;
-    text-align: center;
-    background: linear-gradient(45deg,#00c3ff,#00ffcc);
-    color: black;
-    font-size: 20px;
-    border-radius: 14px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
+    background: #4CAF50;
+    color: white;
+    transition: 0.3s;
 }
 
-.products {
-    display: flex;
-    gap: 20px;
+button:hover {
+    background: #45a049;
 }
 
-.product {
-    background: #1a1a1a;
-    padding: 15px;
+.section {
+    display: none;
+    margin-top: 20px;
+    width: 90%;
+    max-width: 800px;
+}
+
+#cataloguePreview img,
+#iaPreview img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+input[type="file"] {
+    margin: 10px 0;
+}
+
+.tshirt {
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    border: 1px solid #999;
+    display: inline-block;
+    position: relative;
+    margin: 10px;
     border-radius: 12px;
 }
 
-.product img {
-    width: 120px;
-    border-radius: 10px;
-}
-
-#screensaver {
-    position: fixed;
+.tshirt img {
     width: 100%;
     height: 100%;
-    background: black;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    font-size: 40px;
-    animation: fade 2s infinite alternate;
+    object-fit: cover;
+    border-radius: 12px;
 }
-
-@keyframes fade {
-    from {opacity:0.3;}
-    to {opacity:1;}
-}
-</style>
-</head>
-
-<body onclick="resetTimer()">
-
-<!-- Accueil -->
-<div id="home" class="screen active">
-    <h1>Kiosque Digital</h1>
-    <div class="button" onclick="show('catalogue')">Catalogue</div>
-    <div class="button" onclick="show('camera')">Caméra</div>
-    <div class="button" onclick="show('contact')">Contact</div>
-</div>
-
-<!-- Catalogue -->
-<div id="catalogue" class="screen">
-    <h1>Produits</h1>
-
-    <div class="products">
-        <div class="product">
-            <img src="https://via.placeholder.com/120">
-            <p>Produit 1</p>
-        </div>
-
-        <div class="product">
-            <img src="https://via.placeholder.com/120">
-            <p>Produit 2</p>
-        </div>
-
-        <div class="product">
-            <img src="https://via.placeholder.com/120">
-            <p>Produit 3</p>
-        </div>
-    </div>
-
-    <div class="button" onclick="show('home')">Retour</div>
-</div>
-
-<!-- Caméra -->
-<div id="camera" class="screen">
-    <h1>Caméra</h1>
-    <video id="video" width="300" autoplay></video>
-    <canvas id="canvas" width="300" height="200"></canvas>
-
-    <div class="button" onclick="startCamera()">Activer</div>
-    <div class="button" onclick="capture()">Photo</div>
-    <div class="button" onclick="show('home')">Retour</div>
-</div>
-
-<!-- Contact -->
-<div id="contact" class="screen">
-    <h1>Contact</h1>
-    <p>📞 0550 00 00 00</p>
-    <div class="button" onclick="show('home')">Retour</div>
-</div>
-
-<!-- Écran de veille -->
-<div id="screensaver" onclick="hideScreensaver()">
-    Touchez pour commencer
-</div>
-
-<script>
-function show(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-}
-
-function startCamera() {
-    navigator.mediaDevices.getUserMedia({ video: true })
-    .then(stream => {
-        document.getElementById('video').srcObject = stream;
-    })
-    .catch(() => alert("Caméra bloquée"));
-}
-
-function capture() {
-    let video = document.getElementById('video');
-    let canvas = document.getElementById('canvas');
-    let ctx = canvas.getContext('2d');
-    ctx.drawImage(video,0,0,300,200);
-}
-
-// écran de veille
-let timer;
-function resetTimer() {
-    clearTimeout(timer);
-    document.getElementById('screensaver').style.display="none";
-    timer = setTimeout(()=>{
-        document.getElementById('screensaver').style.display="flex";
-    },20000);
-}
-
-function hideScreensaver(){
-    document.getElementById('screensaver').style.display="none";
-    resetTimer();
-}
-
-resetTimer();
-</script>
-
-</body>
-</html>
-Meriem
-HTML
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kiosque Ultra Complet</title>
-<style>
-    /* Fond animé */
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        height: 100vh;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(45deg, #74ebd5, #ACB6E5, #f7797d, #fbd786);
-        background-size: 600% 600%;
-        animation: gradientBG 15s ease infinite;
-    }
-
-    @keyframes gradientBG {
-        0% {background-position: 0% 50%;}
-        50% {background-position: 100% 50%;}
-        100% {background-position: 0% 50%;}
-    }
-
-    /* Kiosque central */
-    .kiosque {
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 25px;
-        padding: 50px;
-        text-align: center;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        max-width: 700px;
-        width: 90%;
-        position: relative;
-        animation: fadeIn 1s ease-out;
-    }
-
-    h1 {
-        font-size: 3em;
-        color: #333;
-        margin-bottom: 20px;
-        animation: slideIn 1s ease-out;
-    }
-
-    p {
-        font-size: 1.2em;
-        color: #555;
-        margin-bottom: 30px;
-    }
-
-    button {
-        padding: 15px 35px;
-        margin: 10px;
-        font-size: 18px;
-        border: none;
-        border-radius: 15px;
-        background: #ff7e5f;
-        color: white;
-        cursor: pointer;
-        transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
-        box-shadow: 0 5px 25px rgba(0,0,0,0.2);
-    }
-
-    button:hover {
-        transform: translateY(-5px) scale(1.05);
-        background: #feb47b;
-        box-shadow: 0 10px 35px rgba(0,0,0,0.3);
-    }
-
-    img {
-        max-width: 120px;
-        margin: 15px;
-        border-radius: 15px;
-        transition: transform 0.5s;
-    }
-
-    img:hover {
-        transform: rotate(15deg) scale(1.1);
-    }
-
-    video {
-        margin-top: 20px;
-        border-radius: 20px;
-        max-width: 100%;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-
-    @keyframes fadeIn {
-        from {opacity:0;} to {opacity:1;}
-    }
-
-    @keyframes slideIn {
-        from {transform: translateY(-30px); opacity:0;}
-        to {transform: translateY(0); opacity:1;}
-    }
 </style>
 </head>
 <body>
 
-<div class="kiosque">
-    <h1>Kiosque Ultra Complet</h1>
-    <p>Choisis une action :</p>
+<h1>Kiosque Interactif</h1>
 
-    <button onclick="action1()">Ouvrir Google</button>
-    <button onclick="action2()">Afficher Message</button>
-    <button onclick="action3()">Ouvrir PDF</button>
-    <button onclick="action4()">Ouvrir YouTube</button>
-    <button onclick="action5()">Afficher Image</button>
-    <button onclick="action6()">Lire Vidéo</button>
+<div>
+    <button onclick="showSection('catalogue')">Catalogue</button>
+    <button onclick="showSection('ia')">Créé par IA</button>
+</div>
 
-    <div id="imageContainer"></div>
+<!-- SECTION CATALOGUE -->
+<div id="catalogue" class="section">
+    <h2>Catalogue T-shirts</h2>
+    <input type="file" id="catalogueInput" accept="image/*" multiple>
+    <label>Choisir la couleur du t-shirt:
+        <input type="color" id="tshirtColor" value="#ffffff">
+    </label>
+    <label>Choisir la taille:
+        <select id="tshirtSize">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+        </select>
+    </label>
+    <div id="cataloguePreview"></div>
+</div>
 
-    <video id="videoDemo" controls style="display:none;">
-        <source src="exemple.mp4" type="video/mp4">
-        Ton navigateur ne supporte pas la lecture vidéo.
-    </video>
+<!-- SECTION IA -->
+<div id="ia" class="section">
+    <h2>Créé par IA</h2>
+    <video id="webcam" autoplay playsinline width="300" height="225" style="border:2px solid #333; border-radius:8px;"></video>
+    <br>
+    <button onclick="captureImage()">Prendre Photo</button>
+    <div id="iaPreview"></div>
 </div>
 
 <script>
-    function action1() {
-        window.open('https://www.google.com', '_blank');
-    }
-
-    function action2() {
-        alert('Bienvenue sur ton kiosque ultra complet !');
-    }
-
-    function action3() {
-        window.open('exemple.pdf', '_blank');
-    }
-
-    function action4() {
-        window.open('https://www.youtube.com', '_blank');
-    }
-
-    function action5() {
-        const container = document.getElementById('imageContainer');
-        container.innerHTML = `
-            <img src="https://via.placeholder.com/120" alt="Image 1">
-            <img src="https://via.placeholder.com/120/ff7e5f" alt="Image 2">
-            <img src="https://via.placeholder.com/120/feb47b" alt="Image 3">
-        `;
-    }
-
-    function action6() {
-        const video = document.getElementById('videoDemo');
-        video.style.display = 'block';
-        video.play();
-    }
-</script>
-
-</body>
-</html>
-Meriem
-HTML
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kiosque Expo Ultra</title>
-<style>
-    /* Fond vidéo en plein écran */
-    body, html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        overflow: hidden;
-    }
-
-    video#bgVideo {
-        position: fixed;
-        right: 0;
-        bottom: 0;
-        min-width: 100%;
-        min-height: 100%;
-        z-index: -1;
-        object-fit: cover;
-        filter: brightness(0.7);
-    }
-
-    /* Kiosque central */
-    .kiosque {
-        position: relative;
-        z-index: 1;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 30px;
-        padding: 50px;
-        max-width: 800px;
-        width: 90%;
-        margin: auto;
-        text-align: center;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        animation: fadeIn 2s ease-out;
-    }
-
-    h1 {
-        font-size: 3em;
-        margin-bottom: 20px;
-        color: #333;
-        animation: slideIn 1.5s ease-out;
-    }
-
-    p {
-        font-size: 1.2em;
-        margin-bottom: 30px;
-        color: #555;
-    }
-
-    button {
-        padding: 15px 40px;
-        margin: 10px;
-        font-size: 18px;
-        border: none;
-        border-radius: 20px;
-        background: linear-gradient(45deg, #ff7e5f, #feb47b);
-        color: white;
-        cursor: pointer;
-        transition: transform 0.3s, box-shadow 0.3s, background 0.5s;
-        box-shadow: 0 5px 25px rgba(0,0,0,0.3);
-    }
-
-    button:hover {
-        transform: scale(1.1) translateY(-5px);
-        background: linear-gradient(45deg, #feb47b, #ff7e5f);
-        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-    }
-
-    img {
-        max-width: 150px;
-        margin: 10px;
-        border-radius: 15px;
-        transition: transform 0.6s;
-        animation: float 4s ease-in-out infinite alternate;
-    }
-
-    img:hover {
-        transform: rotate(15deg) scale(1.15);
-    }
-
-    @keyframes fadeIn {
-        from {opacity:0;} to {opacity:1;}
-    }
-
-    @keyframes slideIn {
-        from {transform: translateY(-30px); opacity:0;} 
-        to {transform: translateY(0); opacity:1;}
-    }
-
-    @keyframes float {
-        from {transform: translateY(0px);}
-        to {transform: translateY(-15px);}
-    }
-
-    video#videoDemo {
-        margin-top: 20px;
-        border-radius: 20px;
-        max-width: 100%;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        display: none;
-    }
-</style>
-</head>
-<body>
-
-<!-- Fond vidéo -->
-<video autoplay muted loop id="bgVideo">
-    <source src="background.mp4" type="video/mp4">
-    Ton navigateur ne supporte pas la lecture vidéo.
-</video>
-
-<div class="kiosque">
-    <h1>Kiosque Expo Ultra</h1>
-    <p>Choisis une action :</p>
-
-    <button onclick="action1()">Ouvrir Google</button>
-    <button onclick="action2()">Afficher Message</button>
-    <button onclick="action3()">Ouvrir PDF</button>
-    <button onclick="action4()">Ouvrir YouTube</button>
-    <button onclick="action5()">Afficher Images Animées</button>
-    <button onclick="action6()">Lire Vidéo Démo</button>
-
-    <div id="imageContainer"></div>
-    <video id="videoDemo" controls>
-        <source src="exemple.mp4" type="video/mp4">
-        Ton navigateur ne supporte pas la lecture vidéo.
-    </video>
-</div>
-
-<script>
-function action1() {
-    window.open('https://www.google.com', '_blank');
+// Gestion des sections
+function showSection(section) {
+    document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+    document.getElementById(section).style.display = 'block';
 }
-function action2() {
-    alert('Bienvenue sur ton kiosque Expo Ultra !');
-}
-function action3() {
-    window.open('exemple.pdf', '_blank');
-}
-function action4() {
-    window.open('https://www.youtube.com', '_blank');
-}
-function action5() {
-    const container = document.getElementById('imageContainer');
-    container.innerHTML = `
-        <img src="https://via.placeholder.com/150" alt="Image 1">
-        <img src="https://via.placeholder.com/150/ff7e5f" alt="Image 2">
-        <img src="https://via.placeholder.com/150/feb47b" alt="Image 3">
-    `;
-}
-function action6() {
-    const video = document.getElementById('videoDemo');
-    video.style.display = 'block';
-    video.play();
+
+// Catalogue
+const catalogueInput = document.getElementById('catalogueInput');
+const cataloguePreview = document.getElementById('cataloguePreview');
+const tshirtColor = document.getElementById('tshirtColor');
+
+catalogueInput.addEventListener('change', () => {
+    cataloguePreview.innerHTML = '';
+    Array.from(catalogueInput.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = e => {
+            const tshirtDiv = document.createElement('div');
+            tshirtDiv.classList.add('tshirt');
+            tshirtDiv.style.backgroundColor = tshirtColor.value;
+            tshirtDiv.innerHTML = <img src="${e.target.result}" alt="Tshirt">;
+            cataloguePreview.appendChild(tshirtDiv);
+        };
+        reader.readAsDataURL(file);
+    });
+});
+
+// Webcam et IA (simulation)
+const webcam = document.getElementById('webcam');
+const iaPreview = document.getElementById('iaPreview');
+
+navigator.mediaDevices.getUserMedia({ video: true })
+.then(stream => webcam.srcObject = stream)
+.catch(err => console.error("Webcam non accessible:", err));
+
+function captureImage() {
+    const canvas = document.createElement('canvas');
+    canvas.width = webcam.videoWidth;
+    canvas.height = webcam.videoHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(webcam, 0, 0, canvas.width, canvas.height);
+
+    // Simulation transformation IA
+    const img = document.createElement('img');
+    img.src = canvas.toDataURL();
+    img.style.filter = 'contrast(1.2) saturate(1.5)'; // exemple style cartoon
+    iaPreview.appendChild(img);
 }
 </script>
 
